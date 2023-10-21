@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Nutrition Page</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Stylesheets -->
+	<link th:href="@{/assets/vendor/bootstrap/css/bootstrap.css}" rel="stylesheet">
+	<link th:href="@{/assets/css/stylesheet.css}" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</head>
+
+<body>
+	<!-- Navbar, W3Schools & MDBootsrap -->
+	<nav class="navbar navbar-expand-sm navbar-light" style="padding-right: 14px">
+		<a class="navbar-brand" href="/Spring/" style="padding-left: 20px;">Nutrition Tracker Project</a>
+		<div class="collapse navbar-collapse" id="navbarText">
+			<ul class="navbar-nav me-auto">
+				<li class="nav-item">
+					<a href="/Spring/" class="nav-link"><span>Home</span></a>
+				</li>
+				<li class="nav-item" sec:authorize="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
+					<a href="/Spring/foods" class="nav-link"><span>Foods</span></a>
+				</li>
+				<li class="nav-item" sec:authorize="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
+					<a href="/Spring/journal" class="nav-link"><span>Journal</span></a>
+				</li>
+				<li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+					<a href="/Spring/admin" class="nav-link"><span>Manage</span></a>
+				</li>
+			</ul>
+
+			<div sec:authorize="hasAnyRole('ROLE_USER','ROLE_ADMIN')" class="navbar-logged-in ml-3">
+				<ul class="navbar-nav me-auto">
+					<li class="nav-item">
+						<span sec:authentication="name" style="font-size: 20px;"></span>
+						<i class="bi bi-person-circle" style="font-size: 28px;"> </i>
+					</li>
+					<li class="nav-item me-3 me-lg-0" style='margin-left:15px;'>
+						<form th:action="@{/logout}" method="post">
+							<button class="btn btn-outline-primary" type="submit">Logout</button>
+						</form>
+					</li>
+				</ul>
+			</div>
+
+		</div>
+	</nav>
+
+	<div sec:authorize="hasAnyRole('ROLE_USER','ROLE_ADMIN')" class="container mt-3 mb-3">
+		<h1 class="h1 text-center">Daily Total</h1>
+		<table class="table table-hover table-bordered table-sm">
+			<thead class="table-light">
+				<tr>
+					<th class="text-center align-middle">Protein</th>
+					<th class="text-center align-middle">Fat</th>
+					<th class="text-center align-middle">Carbs</th>
+					<th class="text-center align-middle">Calories</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="text-center align-middle" th:text="${totalProtein}"></td>
+					<td class="text-center align-middle" th:text="${totalFat}"></td>
+					<td class="text-center align-middle" th:text="${totalCarbs}"></td>
+					<td class="text-center align-middle" th:text="${totalCal}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div sec:authorize="hasAnyRole('ROLE_USER','ROLE_ADMIN')" class="container mt-5 mb-5"
+		th:each="mealNumber : ${#numbers.sequence(1, 3)}">
+		<h1 class="h2 text-center" th:text="'Meal ' + ${mealNumber}" />
+		<table class="table table-hover table-bordered table-sm">
+			<thead class="table-light">
+				<tr>
+					<th class="text-center align-middle">Name</th>
+					<th class="text-center align-middle">Protein</thclass="text-center">
+					<th class="text-center align-middle">Fat</th>
+					<th class="text-center align-middle">Carbs</thclass="text-center">
+					<th class="text-center align-middle">Calories</th>
+					<th class="text-center align-middle">Quantity</th>
+					<th class="text-center align-middle">Update Qty</th>
+					<th class="text-center align-middle">Remove</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="item : ${items}" th:if="${item.meal} == ${mealNumber}">
+					<td class="text-center align-middle" th:text="${foodMap[item.itemId].description}"></td>
+					<td class="text-center align-middle" th:text="${foodMap[item.itemId].getNutrientValue(1003)}"></td>
+					<td class="text-center align-middle" th:text="${foodMap[item.itemId].getNutrientValue(1004)}"></td>
+					<td class="text-center align-middle" th:text="${foodMap[item.itemId].getNutrientValue(1005)}"></td>
+					<td class="text-center align-middle" th:text="${foodMap[item.itemId].getNutrientValue(1008)}"></td>
+					<td class="text-center align-middle" th:id="'qtyForItem' + ${item.itemId}" th:text="${item.quantity}"
+						contenteditable="true"></td>
+					<td>
+						<script th:inline="javascript">
+							/*<![CDATA[*/
+
+							var lastValidInput = document.getElementById('qtyForItem[[${item.itemId}]]').innerText;
+
+							document.getElementById('qtyForItem[[${item.itemId}]]').addEventListener('input', function () {
+								if (/^\d*\.?\d*$/.test(this.innerText)) {
+									lastValidInput = this.innerText;
+									document.getElementById('item[[${item.itemId}]]').value = this.innerText;
+								} else {
+									this.innerText = lastValidInput;
+									alert('A valid number is needed.');
+								}
+							});
+	            		/*]]>*/
+						</script>
+						<div class="d-flex justify-content-center">
+							<form id="updateItem" action="/Spring/api/items/update" method="post">
+								<input type="hidden" name="itemId" th:value="${foodMap[item.itemId].fdcId}" />
+								<input th:attr="id='item' + ${item.itemId}, value=${item.quantity}" type="hidden"
+									name="quantity" />
+								<input type="hidden" name="meal" th:value="${item.meal}" />
+								<input type="hidden" name="date" th:value="${item.date}" />
+								<input type="hidden" name="_method" value="put" />
+								<input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+								<button class="btn btn-outline-secondary" type="submit">Update</button>
+							</form>
+						</div>
+					</td>
+					<td>
+						<div class="d-flex justify-content-center">
+							<form id="removeItem" action="/Spring/api/items/delete" method="post">
+								<input type="hidden" name="itemId" th:value="${foodMap[item.itemId].fdcId}" />
+								<input type="hidden" name="meal" th:value="${item.meal}" />
+								<input type="hidden" name="date" th:value="${item.date}" />
+								<input type="hidden" name="_method" value="delete" />
+								<input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+								<button class="btn btn-outline-primary" type="submit">Remove</button>
+							</form>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<!-- Footer, MDBootsrap & W3Schools -->
+	<footer class='footer'>
+		<div class='text-center'>
+			<p id='footer'>© 2023 Copyright: Trevor Busk</p>
+		</div>
+	</footer>
+	<!-- Scripts -->
+	<script type="text/javascript" th:src="@{/assets/vendor/bootstrap/js/bootstrap.min.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/vendor/jquery/jquery-3.7.1.min.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/scripts.js}"></script>
+
+</body>
+
+</html>
