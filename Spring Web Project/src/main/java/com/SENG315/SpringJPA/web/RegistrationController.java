@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.SENG315.SpringJPA.domain.User.User;
 import com.SENG315.SpringJPA.domain.User.UserRepository;
 
+/**
+ * Controller for user registration.  
+ * When a user requests to register an account, their password will be encoded and their credentials will be stored in the database
+ */
 @Controller
 public class RegistrationController {
 

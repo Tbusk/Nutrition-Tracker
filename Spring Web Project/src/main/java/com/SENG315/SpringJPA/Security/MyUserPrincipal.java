@@ -10,8 +10,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.SENG315.SpringJPA.domain.User.User;
 
+/**
+ * This is a class that is used in the Spring Security suite for a user with methods required to implement a login system.
+ */
 public class MyUserPrincipal implements UserDetails {
 
+	// Variables
+	private static final long serialVersionUID = -3659259589475609476L;
 	String ROLE_PREFIX = "ROLE_";
 	private User user;
 

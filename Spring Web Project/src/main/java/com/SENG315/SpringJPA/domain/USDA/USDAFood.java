@@ -3,8 +3,20 @@ package com.SENG315.SpringJPA.domain.USDA;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This is a POGO class for a food item in the USDA food database.  It contains some of the variables for a food item, but not all. 
+ * <ul>
+ * Contains the variables:
+ * <li>Description</li>
+ * <li>Brand Name</li>
+ * <li>Ingredients</li>
+ * <li>Category of food</li>
+ * <li>List of food nutrients</li>
+ * </ul>
+ */
 public class USDAFood {
 
+	// Variables
 	private int fdcId;
 	private String description;
 	private String brandName;
@@ -12,6 +24,7 @@ public class USDAFood {
 	private String foodCategory;
 	private List<USDAFoodNutrient> foodNutrients;
 
+	// Default Constructor
 	public USDAFood() {
 		description = "N/A";
 		brandName = "N/A";
@@ -19,6 +32,8 @@ public class USDAFood {
 		foodCategory = "N/A";
 	}
 
+	// Getters and setters
+	
 	public Double getNutrientValue(int nutrientId) {
 		for (USDAFoodNutrient nutrient : foodNutrients) {
 			if (nutrient.getNutrientId() == nutrientId) {
@@ -72,6 +87,7 @@ public class USDAFood {
 		return foodNutrients;
 	}
 
+	// Used to filter out majority of nutrients.  By default it would give all of the nutrients, but that can be over 65 per item.  Only four items are stored, which are in the Nutrients enum.
 	public void setFoodNutrients(List<USDAFoodNutrient> foodNutrients) {
 		List<USDAFoodNutrient> filteredNutrients = new ArrayList<>();
 		for (USDAFoodNutrient nutrient : foodNutrients) {

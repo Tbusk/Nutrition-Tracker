@@ -19,6 +19,12 @@ import com.SENG315.SpringJPA.domain.Item.UserItemId;
 import com.SENG315.SpringJPA.domain.User.User;
 import com.SENG315.SpringJPA.domain.User.UserRepository;
 
+/**
+ * A controller for the items in a user's journal with the ability to add an item to a user's journal, 
+ * update the quantity of an item in the user's journal, and delete an item from the user's journal.
+ * Additionally, if a user tries to add an item that is already in that meal, 
+ * it will just increase the quantity by one instead of adding a new record.
+ */
 @Controller
 @RequestMapping(path = "/api/items")
 public class ItemController {
@@ -52,6 +58,7 @@ public class ItemController {
 		userItemId.setMeal(meal);
 		userItemId.setDate(date);
 
+		// If an item exists in the database already, it'll increase the quantity by one.
 		if (itemRepository.existsById(userItemId)) {
 
 			Item existingItem = itemRepository.findById(userItemId).get();
@@ -61,6 +68,8 @@ public class ItemController {
 		} else if (userId == -1) {
 			System.out.println("User is not logged in. An error occurred!");
 		} else {
+			
+			// Creates the new item and stores it in the database
 			Item newItem = new Item();
 			newItem.setUserId(userId);
 			newItem.setItemId(itemId);
@@ -72,6 +81,7 @@ public class ItemController {
 		return "redirect:/journal";
 	}
 
+	// Updates the quantity of an item in the user's journal
 	@PutMapping("/update")
 	public String updateItem(@RequestParam Map<String, String> paramMap) {
 
@@ -97,6 +107,7 @@ public class ItemController {
 
 		Item existingItem = itemRepository.findById(userItemId).get();
 
+		// if the item exists in the database, the quantity will be changed.
 		if (itemRepository.existsById(userItemId)) {
 			existingItem.setQuantity(quantity);
 			itemRepository.save(existingItem);
@@ -105,6 +116,7 @@ public class ItemController {
 		return "redirect:/journal?dateSelected=" + date;
 	}
 
+	// Deletes an item from the user's journal
 	@DeleteMapping("/delete")
 	public String deleteItem(@RequestParam Map<String, String> paramMap) {
 
@@ -127,6 +139,7 @@ public class ItemController {
 		userItemId.setMeal(meal);
 		userItemId.setDate(date);
 
+		// If the item exists, it'll be deleted.
 		if (itemRepository.existsById(userItemId)) {
 
 			itemRepository.deleteById(userItemId);

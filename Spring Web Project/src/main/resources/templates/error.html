@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
-	<title>Nutrition Page</title>
+	<title>Error Page</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- Stylesheets -->
@@ -13,7 +13,7 @@
 </head>
 
 <body>
-	<!-- Navbar, W3Schools & MDBootsrap -->
+	<!-- Navbar -->
 	<nav class="navbar navbar-expand-sm navbar-light" style="padding-right: 14px">
 		<a class="navbar-brand" href="/" style="padding-left: 20px;">Nutrition Tracker Project</a>
 		<div class="collapse navbar-collapse" id="navbarText">
@@ -31,7 +31,8 @@
 					<a href="/admin" class="nav-link"><span>Manage</span></a>
 				</li>
 			</ul>
-
+			
+			<!-- Navbar User Section -->
 			<div sec:authorize="hasAnyRole('ROLE_USER','ROLE_ADMIN')" class="navbar-logged-in ml-3">
 				<ul class="navbar-nav me-auto">
 					<li class="nav-item align-items-center">
@@ -52,7 +53,7 @@
 	</nav>
 
 
-	<!-- https://getbootstrap.com/docs/5.0/examples/product/ -->
+	<!-- Error message card -->
 	<section class="vh-100" style="background-color: lightgrey;">
 		<div class="container py-5 h-100">
 			<div class="row d-flex justify-content-center align-items-center h-100">
@@ -83,7 +84,7 @@
 	</section>
 
 
-	<!-- Footer, MDBootsrap & W3Schools -->
+	<!-- Footer -->
 	<footer class='footer'>
 		<div class='text-center'>
 			<p id='footer'>© 2023 Copyright: Trevor Busk</p>

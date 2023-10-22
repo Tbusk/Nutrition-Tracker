@@ -8,6 +8,10 @@ import org.thymeleaf.spring6.SpringTemplateEngine;
 import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring6.view.ThymeleafViewResolver;
 
+/**
+ * Class used to customize the behavior of Thymeleaf templates used in the application.  
+ * It was implemented, but not really used in this application.  It is stored for reference.
+ */
 @Configuration
 public class ThymeleafConfiguration {
 

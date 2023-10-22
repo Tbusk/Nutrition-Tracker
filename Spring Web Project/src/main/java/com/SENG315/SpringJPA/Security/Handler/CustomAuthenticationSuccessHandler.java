@@ -9,6 +9,10 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+/**
+ * This is a custom authentication success handler used in the Spring Security suite of this application. 
+ * This is used to define what happens when a user successfully enters correct credentials in the login page.
+ */
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
 	@Override

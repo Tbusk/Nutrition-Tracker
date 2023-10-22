@@ -10,11 +10,16 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
+/**
+ * This is an class that represents the user_item table in the database, which stores userId, usdaItemId, meal number, quantity, and date information.  
+ * The information represents an item that is logged in the journal that can be pulled up when viewing the journal for a particular date.
+ */
 @Entity
 @Table(name = "user_item")
 @IdClass(UserItemId.class)
 public class Item {
 
+	// Variables
 	@Id
 	@Column(name = "user_id")
 	private Long userId;
@@ -30,6 +35,8 @@ public class Item {
 
 	@Temporal(TemporalType.DATE)
 	private LocalDate date;
+	
+	// Getters and Setters
 
 	public LocalDate getDate() {
 		return date;

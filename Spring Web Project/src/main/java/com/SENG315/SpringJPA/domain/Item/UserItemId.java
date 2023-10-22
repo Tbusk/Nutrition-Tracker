@@ -8,10 +8,13 @@ import jakarta.persistence.Embeddable;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
+/**
+ * This is a class that acts as a connector between the items due to the foreign/composite key being used in the database.
+ */
 @Embeddable
 public class UserItemId implements Serializable {
 	/**
-	 * 
+	 * Variables
 	 */
 	private static final long serialVersionUID = 2298764990348959893L;
 	private Long userId;
@@ -21,6 +24,8 @@ public class UserItemId implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private LocalDate date;
 
+	// Getters and setters
+	
 	public LocalDate getDate() {
 		return date;
 	}

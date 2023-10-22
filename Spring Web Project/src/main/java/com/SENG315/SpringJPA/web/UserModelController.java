@@ -13,6 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.SENG315.SpringJPA.domain.User.User;
 import com.SENG315.SpringJPA.domain.User.UserRepository;
 
+
+/**
+ * This is a controller for the admin's page which defines the actions an admin can make on the users table.
+ * Actions include getting all users in the database, getting a specific user from the database, 
+ * and deleting a user from the database.
+ */
 @Controller
 @RequestMapping(path = "/admin")
 public class UserModelController {

@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import com.SENG315.SpringJPA.domain.Item.Item;
 import com.SENG315.SpringJPA.domain.Item.ItemRepository;
@@ -27,6 +28,11 @@ import com.SENG315.SpringJPA.domain.USDA.USDASearchResponse;
 import com.SENG315.SpringJPA.domain.User.User;
 import com.SENG315.SpringJPA.domain.User.UserRepository;
 
+import reactor.core.publisher.Mono;
+
+/**
+ * This is a controller that controlls items that will show up under a user's journal.  
+ */
 @Controller
 public class ItemViewController {
 
@@ -56,27 +62,31 @@ public class ItemViewController {
 				User user = userRepository.findByEmail(email);
 				java.util.List<Item> items = itemRepository.findByUserIdAndDate(user.getId(), date);
 
-				RestTemplate restTemplate = new RestTemplate();
-				HttpHeaders headers = new HttpHeaders();
-				headers.set("X-Api-Key", xAPIKey);
-				HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
+				WebClient webClient = WebClient.builder()
+						.defaultHeader("X-Api-Key",xAPIKey)
+						.build();
 
 				Map<Long, USDAFood> foodMap = new HashMap<>();
 				double totalCal = 0.0d;
 				double totalProtein = 0.0d;
 				double totalCarbs = 0.0d;
 				double totalFat = 0.0d;
-				USDAFood food;
+				USDAFood food= new USDAFood();
+				
 				for (Item item : items) {
-
-					food = new USDAFood();
-					;
+					
 					try {
-						ResponseEntity<USDASearchResponse> response = restTemplate.exchange(
-								"https://api.nal.usda.gov/fdc/v1/foods/search?pageSize=1&query=" + item.getItemId(),
-								HttpMethod.GET, entity, USDASearchResponse.class);
-
-						food = response.getBody().getFoods().get(0);
+						Mono<USDASearchResponse> responseMono = webClient.get()
+								.uri("https://api.nal.usda.gov/fdc/v1/foods/search?pageSize=1&query=" + item.getItemId())
+								.retrieve()
+								.bodyToMono(USDASearchResponse.class);
+						
+						USDASearchResponse response = responseMono.block();
+						
+						if(response != null && !response.getFoods().isEmpty()) {
+							food = response.getFoods().get(0);
+						}
+						
 					} catch (Exception e) {
 						e.printStackTrace();
 					}

@@ -5,18 +5,19 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+/**
+ * This represents a user entity in the database, which stores an id, email, password, and a role for a particular user.
+ */
 @Entity(name = "user")
 public class User {
 
+	// Variables
 	private long id;
 	private String email;
 	private String password;
 	private String role;
 
-	public User() {
-
-	}
-
+	// Getters and Setters
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public long getId() {

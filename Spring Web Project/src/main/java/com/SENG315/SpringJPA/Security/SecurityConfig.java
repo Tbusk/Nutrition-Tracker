@@ -17,7 +17,10 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import com.SENG315.SpringJPA.Security.Handler.CustomAccessDeniedHandler;
 import com.SENG315.SpringJPA.Security.Handler.CustomAuthenticationFailureHandler;
 import com.SENG315.SpringJPA.Security.Handler.CustomAuthenticationSuccessHandler;
-
+/**
+ * This is a class that essentially defines the security used in the spring boot application.
+ * It sets handlers and grants permission to particular endpoints based on roles and configures them (ex: configures login / logout process).
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {

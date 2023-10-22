@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
-	<title>Nutrition Page</title>
+	<title>Admin Page</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- Stylesheets -->
@@ -12,7 +12,7 @@
 </head>
 
 <body>
-	<!-- Navbar, W3Schools & MDBootsrap -->
+	<!-- Navbar -->
 	<nav class="navbar navbar-expand-sm navbar-light" style="padding-right: 14px">
 		<a class="navbar-brand" href="/" style="padding-left: 20px;">Nutrition Tracker Project</a>
 		<div class="collapse navbar-collapse" id="navbarText">
@@ -31,6 +31,7 @@
 				</li>
 			</ul>
 
+			<!-- Navbar User Section -->
 			<div sec:authorize="hasAnyRole('ROLE_USER','ROLE_ADMIN')" class="navbar-logged-in ml-3">
 				<ul class="navbar-nav me-auto">
 					<li class="nav-item align-items-center">
@@ -51,7 +52,7 @@
 	</nav>
 
 
-	<!-- https://getbootstrap.com/docs/5.0/examples/product/ -->
+	<!-- User's table' -->
 	<div class="container mt-4 mb-4">
 		<div sec:authorize="hasRole('ROLE_ADMIN')" class="container mt-5 mb-3">
 			<h1 class="h3 text-center mb-2">Users</h1>
@@ -116,7 +117,7 @@
 			</table>
 		</div>
 	</div>
-	<!-- Footer, MDBootsrap & W3Schools -->
+	<!-- Footer -->
 	<footer class='footer'>
 		<div class='text-center'>
 			<p id='footer'>© 2023 Copyright: Trevor Busk</p>

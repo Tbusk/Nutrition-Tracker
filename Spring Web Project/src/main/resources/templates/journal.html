@@ -2,17 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
-	<title>Nutrition Page</title>
+	<title>Journal Page</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- Stylesheets -->
 	<link th:href="@{/assets/vendor/bootstrap/css/bootstrap.css}" rel="stylesheet">
 	<link th:href="@{/assets/css/stylesheet.css}" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 
 <body>
-	<!-- Navbar, W3Schools & MDBootsrap -->
+	<!-- Navbar -->
 	<nav class="navbar navbar-expand-sm navbar-light" style="padding-right: 14px">
 		<a class="navbar-brand" href="/" style="padding-left: 20px;">Nutrition Tracker Project</a>
 		<div class="collapse navbar-collapse" id="navbarText">
@@ -30,7 +30,8 @@
 					<a href="/admin" class="nav-link"><span>Manage</span></a>
 				</li>
 			</ul>
-
+			
+			<!-- User Account Section -->
 			<div sec:authorize="hasAnyRole('ROLE_USER','ROLE_ADMIN')" class="navbar-logged-in ml-3">
 				<ul class="navbar-nav me-auto">
 					<li class="nav-item align-items-center">
@@ -50,6 +51,7 @@
 		</div>
 	</nav>
 
+	<!-- Nutrition Section -->
 	<div class="container mt-4 mb-4">
 		<div class="form-container mb-3 mt-3">
 			<form th:action="@{./journal}" method="get">
@@ -159,12 +161,13 @@
 		</div>
 	</div>
 
-	<!-- Footer, MDBootsrap & W3Schools -->
+	<!-- Footer -->
 	<footer class='footer'>
 		<div class='text-center'>
 			<p id='footer'>© 2023 Copyright: Trevor Busk</p>
 		</div>
 	</footer>
+	
 	<!-- Scripts -->
 	<script type="text/javascript" th:src="@{/assets/vendor/bootstrap/js/bootstrap.min.js}"></script>
 	<script type="text/javascript" th:src="@{/assets/vendor/jquery/jquery-3.7.1.min.js}"></script>
