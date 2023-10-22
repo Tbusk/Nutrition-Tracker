@@ -1,4 +1,4 @@
-package com.SENG315.SpringJPA.Security;
+package com.SENG315.SpringJPA.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
