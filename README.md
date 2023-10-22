@@ -26,6 +26,6 @@ In that file, be sure to include the following:
 * spring.datasource.driver-class-name=org.mariadb.jdbc.Driver
 * spring.jpa.generate-ddl=true
 * spring.jpa.hibernate.ddl-auto=none
-* server.servlet.context-path=/Spring
+* server.servlet.context-path=/
 * spring.mvc.hiddenmethod.filter.enabled=true
 * usda.api.key=
