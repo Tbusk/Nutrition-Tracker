@@ -5,27 +5,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class PageMappingController {
-	
-	@GetMapping("/login") 
+
+	@GetMapping("/login")
 	public String login() {
 		return "login";
 	}
-	
+
 	@GetMapping("/register")
 	public String register() {
 		return "register";
 	}
-	
-	@GetMapping("/admin")
-	public String admin() {
-		return "admin";
-	}
-	
+
 	@GetMapping("/error")
 	public String error() {
 		return "error";
 	}
-	
+
 	@GetMapping("/")
 	public String index() {
 		return "index";

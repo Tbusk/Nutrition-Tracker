@@ -8,12 +8,12 @@ body {
 }
 
 .masthead {
-  height: 100vh;
-  min-height: 500px;
-  background-image: url('https://images.pexels.com/photos/1640773/pexels-photo-1640773.jpeg?cs=srgb&dl=pexels-ella-olsson-1640773.jpg&fm=jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+	height: 100vh;
+	min-height: 500px;
+	background-image: url('https://images.pexels.com/photos/1640773/pexels-photo-1640773.jpeg?cs=srgb&dl=pexels-ella-olsson-1640773.jpg&fm=jpg');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
 }
 
 .navbar {
@@ -40,7 +40,7 @@ body {
 }
 
 @media (max-width: 1000px) {
-      .hide-on-small {
-        display: none;
-      }
+	.hide-on-small {
+		display: none;
+	}
 }

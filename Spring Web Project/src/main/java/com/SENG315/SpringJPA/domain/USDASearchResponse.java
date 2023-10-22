@@ -13,6 +13,5 @@ public class USDASearchResponse {
 	public void setFoods(List<USDAFood> foods) {
 		this.foods = foods;
 	}
-	
-	
+
 }

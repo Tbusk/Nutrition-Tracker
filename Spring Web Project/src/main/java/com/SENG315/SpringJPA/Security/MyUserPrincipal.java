@@ -10,14 +10,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.SENG315.SpringJPA.domain.User;
 
-public class MyUserPrincipal implements UserDetails{
-	
+public class MyUserPrincipal implements UserDetails {
+
 	String ROLE_PREFIX = "ROLE_";
 	private User user;
 
-
 	public MyUserPrincipal(User user) {
-		// TODO Auto-generated constructor stub
 		this.user = user;
 	}
 
@@ -30,8 +28,8 @@ public class MyUserPrincipal implements UserDetails{
 
 	@Override
 	public String getPassword() {
-		if(user != null) {
-		return user.getPassword();
+		if (user != null) {
+			return user.getPassword();
 		} else {
 			return null;
 		}
@@ -44,25 +42,22 @@ public class MyUserPrincipal implements UserDetails{
 
 	@Override
 	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
-		
+
 		return true;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public boolean isEnabled() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 

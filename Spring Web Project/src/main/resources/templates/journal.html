@@ -33,18 +33,18 @@
 
 			<div sec:authorize="hasAnyRole('ROLE_USER','ROLE_ADMIN')" class="navbar-logged-in ml-3">
 				<ul class="navbar-nav me-auto">
-				<li class="nav-item align-items-center">
-					<div class="d-flex align-items-center">
-                    <a class="nav-link" sec:authentication="name"></a>
-                    <i class="bi bi-person-circle" style="font-size: 22px;"></i>
-                    </div>
-                </li>
-                <li class="nav-item me-3 me-lg-0" style='margin-left:15px;'>
-					<form th:action="@{/logout}" method="post">
-						<button class="btn btn-light" type="submit">Logout</button>
-					</form>
-				</li>
-			</ul>
+					<li class="nav-item align-items-center">
+						<div class="d-flex align-items-center">
+							<a class="nav-link" sec:authentication="name"></a>
+							<i class="bi bi-person-circle" style="font-size: 22px;"></i>
+						</div>
+					</li>
+					<li class="nav-item me-3 me-lg-0" style='margin-left:15px;'>
+						<form th:action="@{/logout}" method="post">
+							<button class="btn btn-light" type="submit">Logout</button>
+						</form>
+					</li>
+				</ul>
 			</div>
 
 		</div>
@@ -53,7 +53,8 @@
 	<div class="container mt-4 mb-4">
 		<div class="form-container mb-3 mt-3">
 			<form th:action="@{./journal}" method="get">
-				<label for="dateSelected" class="h3 text-center mb-3" style="justify-content: center;">Choose a Date</label>
+				<label for="dateSelected" class="h3 text-center mb-3" style="justify-content: center;">Choose a
+					Date</label>
 				<input id="dateSelected" class="form-control text-center" type="date" name="dateSelected"
 					th:value="${dateSelected}" onchange="this.form.submit()" />
 			</form>

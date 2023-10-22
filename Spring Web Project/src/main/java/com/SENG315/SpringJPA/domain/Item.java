@@ -1,7 +1,6 @@
 package com.SENG315.SpringJPA.domain;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,19 +18,19 @@ public class Item {
 	@Id
 	@Column(name = "user_id")
 	private Long userId;
-	
+
 	@Id
 	@Column(name = "item_id")
 	private Long itemId;
-	
+
 	@Id
 	private Integer meal;
 
 	private double quantity;
-	
+
 	@Temporal(TemporalType.DATE)
 	private LocalDate date;
-	
+
 	public LocalDate getDate() {
 		return date;
 	}
@@ -39,11 +38,11 @@ public class Item {
 	public void setDate(LocalDate date) {
 		this.date = date;
 	}
-	
+
 	public void setMeal(Integer meal) {
 		this.meal = meal;
 	}
-	
+
 	public Integer getMeal() {
 		return meal;
 	}
@@ -71,5 +70,5 @@ public class Item {
 	public void setQuantity(double quantity) {
 		this.quantity = quantity;
 	}
-	
+
 }

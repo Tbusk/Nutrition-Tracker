@@ -5,24 +5,24 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-@Entity(name="user")
-public class User{
-	
+@Entity(name = "user")
+public class User {
+
 	private long id;
 	private String email;
 	private String password;
 	private String role;
-	
+
 	public User() {
-		
+
 	}
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public long getId() {
 		return id;
 	}
-	
+
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -50,5 +50,5 @@ public class User{
 	public void setRole(String role) {
 		this.role = role;
 	}
-	
+
 }
