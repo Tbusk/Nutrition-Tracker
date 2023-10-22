@@ -29,3 +29,7 @@ In that file, be sure to include the following:
 * server.servlet.context-path=/
 * spring.mvc.hiddenmethod.filter.enabled=true
 * usda.api.key=
+
+Templates used in this project:
+* https://startbootstrap.com/snippets/full-image-header
+* https://mdbootstrap.com/docs/standard/extended/login/
