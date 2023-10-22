@@ -1,7 +1,8 @@
 $(function() {
   $(document).ready(function() {
     $('#foodsTable').DataTable({
-		pagingType: "simple"
+		pagingType: "simple",
+		searching: false
 	});
   });
 });

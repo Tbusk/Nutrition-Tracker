@@ -1,5 +1,6 @@
 package com.SENG315.SpringJPA.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class USDAFood {
@@ -63,7 +64,20 @@ public class USDAFood {
 		return foodNutrients;
 	}
 	public void setFoodNutrients(List<USDAFoodNutrient> foodNutrients) {
-		this.foodNutrients = foodNutrients;
+		List<USDAFoodNutrient> filteredNutrients = new ArrayList<>();
+		for(USDAFoodNutrient nutrient : foodNutrients) {
+			if(nutrient.getNutrientId() == Nutrient.CARBS.getId()) {
+				filteredNutrients.add(nutrient);
+			} else if(nutrient.getNutrientId() == Nutrient.PROTEIN.getId()) {
+				filteredNutrients.add(nutrient);
+			} else if(nutrient.getNutrientId() == Nutrient.TOTAL_FAT.getId()) {
+				filteredNutrients.add(nutrient);
+			} else if(nutrient.getNutrientId() == Nutrient.CALORIES.getId()) {
+				filteredNutrients.add(nutrient);
+			}
+		}
+		
+		this.foodNutrients = filteredNutrients;
 	}
 	
 	

@@ -1,6 +1,7 @@
 package com.SENG315.SpringJPA.web;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Map;
 
@@ -57,16 +58,8 @@ public class ItemController {
 			User user = userRepository.findByEmail(email);
 			userId = user.getId();
 		}
-		
-		String dateString = paramMap.get("date");
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = new Date();
-		try {
-		date = formatter.parse(dateString);
-		} catch (Exception e) {
-			System.out.println("There is an issue getting the date.");
-		}
-		
+
+		LocalDate date = LocalDate.parse(paramMap.get("date"));
 		
 		UserItemId userItemId = new UserItemId();
 
@@ -109,14 +102,8 @@ public class ItemController {
 		}
 		
 		Integer meal = Integer.parseInt(paramMap.get("meal"));
-		String dateString = paramMap.get("date");
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = new Date();
-		try {
-		date = formatter.parse(dateString);
-		} catch (Exception e) {
-			System.out.println("There is an issue getting the date.");
-		}
+		LocalDate date = LocalDate.parse(paramMap.get("date"));
+		
 		
 		UserItemId userItemId = new UserItemId();
 
@@ -132,7 +119,7 @@ public class ItemController {
 			itemRepository.save(existingItem);
 		}
 		
-		return "redirect:/journal";
+		return "redirect:/journal?dateSelected=" + date;
 	}
 
 	@DeleteMapping("/delete")
@@ -141,14 +128,8 @@ public class ItemController {
 		Long itemId = Long.parseLong(paramMap.get("itemId"));
 		Long userId = -1L;
 		Integer meal = Integer.parseInt(paramMap.get("meal"));
-		String dateString = paramMap.get("date");
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = new Date();
-		try {
-		date = formatter.parse(dateString);
-		} catch (Exception e) {
-			System.out.println("There is an issue getting the date.");
-		}
+		LocalDate date = LocalDate.parse(paramMap.get("date"));
+		
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if(principal instanceof UserDetails) {
 			String email = ((UserDetails)principal).getUsername();
@@ -169,7 +150,7 @@ public class ItemController {
 			itemRepository.deleteById(userItemId);
 		}
 
-		return "redirect:/journal";
+		return "redirect:/journal?dateSelected=" + date;
 	}
 
 }

@@ -1,17 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
 	<title>Nutrition Page</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-
-	<script type="text/javascript" th:src="@{/assets/vendor/jquery/jquery-3.7.1.min.js}"></script>
-	<script type="text/javascript" th:src="@{/assets/vendor/jquery/jquery.dataTables.min.js}"></script>
-	<script type="text/javascript" th:src="@{/assets/vendor/bootstrap/js/dataTables.bootstrap5.min.js}"></script>
-	<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.bootstrap5.min.js"></script>
-	<script type="text/javascript" th:src="@{/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
-
 
 	<!-- Stylesheets -->
 	<link th:href="@{/assets/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
@@ -24,41 +17,43 @@
 <body>
 	<!-- Navbar, W3Schools & MDBootsrap -->
 	<nav class="navbar navbar-expand-sm navbar-light" style="padding-right: 14px">
-		<a class="navbar-brand" href="/Spring/" style="padding-left: 20px;">Nutrition Tracker Project</a>
+		<a class="navbar-brand" href="/" style="padding-left: 20px;">Nutrition Tracker Project</a>
 		<div class="collapse navbar-collapse" id="navbarText">
 			<ul class="navbar-nav me-auto">
 				<li class="nav-item">
-					<a href="/Spring/" class="nav-link"><span>Home</span></a>
+					<a href="/" class="nav-link"><span>Home</span></a>
 				</li>
 				<li class="nav-item" sec:authorize="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
-					<a href="/Spring/foods" class="nav-link"><span>Foods</span></a>
+					<a href="/foods" class="nav-link"><span>Foods</span></a>
 				</li>
 				<li class="nav-item" sec:authorize="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
-					<a href="/Spring/journal" class="nav-link"><span>Journal</span></a>
+					<a href="/journal" class="nav-link"><span>Journal</span></a>
 				</li>
 				<li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
-					<a href="/Spring/admin" class="nav-link"><span>Manage</span></a>
+					<a href="/admin" class="nav-link"><span>Manage</span></a>
 				</li>
 			</ul>
 
 			<div sec:authorize="hasAnyRole('ROLE_USER','ROLE_ADMIN')" class="navbar-logged-in ml-3">
 				<ul class="navbar-nav me-auto">
-					<li class="nav-item">
-						<span sec:authentication="name" style="font-size: 20px;"></span>
-						<i class="bi bi-person-circle" style="font-size: 28px;"> </i>
-					</li>
-					<li class="nav-item me-3 me-lg-0" style='margin-left:15px;'>
-						<form th:action="@{/logout}" method="post">
-							<button class="btn btn-outline-primary" type="submit">Logout</button>
-						</form>
-					</li>
-				</ul>
+				<li class="nav-item align-items-center">
+					<div class="d-flex align-items-center">
+                    <a class="nav-link" sec:authentication="name"></a>
+                    <i class="bi bi-person-circle" style="font-size: 22px;"></i>
+                    </div>
+                </li>
+                <li class="nav-item me-3 me-lg-0" style='margin-left:15px;'>
+					<form th:action="@{/logout}" method="post">
+						<button class="btn btn-light" type="submit">Logout</button>
+					</form>
+				</li>
+			</ul>
 			</div>
 
 		</div>
 	</nav>
 
-	<div sec:authorize="hasAnyRole('ROLE_USER','ROLE_ADMIN')" class="container px-4 px-sm-5 mt-5 mb-5">
+	<!--<div sec:authorize="hasAnyRole('ROLE_USER','ROLE_ADMIN')" class="container px-4 px-sm-5 mt-5 mb-5">
 		<form action="#" th:action="@{/foods}" method="get" class="input-group">
 
 			<span class="input-group-text" id="searchAddon">
@@ -68,17 +63,28 @@
 				aria-describedby="searchAddon" />
 			<button class="btn btn-primary" type="submit">Submit</button>
 		</form>
-	</div>
+	</div>-->
 
 	<div sec:authorize="hasAnyRole('ROLE_USER','ROLE_ADMIN')" class="container">
-		<h1 class="h2 text-center">Items Available</h1>
-		<div class="table-responseive">
-			<table id="foodsTable" class="table table-striped" style="width:100%">
+		<h1 class="h2 text-center mt-5 mb-5">Foods Available</h1>
+		
+		<form action="#" th:action="@{/foods}" method="get" class="input-group">
+
+			<span class="input-group-text" id="searchAddon">
+				<i class="bi bi-search"></i>
+			</span>
+			<input class="form-control" placeholder="search for food" type="text" id="searchbar" name="query"
+				aria-describedby="searchAddon" />
+			<button class="btn btn-primary" type="submit">Submit</button>
+		</form>
+		
+		<div class="table-responseive mt-5 mb-5">
+			<table id="foodsTable" class="table table-striped align-middle" style="width:100%">
 				<thead class="table-light">
 					<tr>
 						<th>Name</th>
-						<th>Brand Name</th>
-						<th>Category</th>
+						<th class="hide-on-small">Brand Name</th>
+						<th class="hide-on-small">Category</th>
 						<th>Carbs</th>
 						<th>Protein</th>
 						<th>Fats</th>
@@ -89,8 +95,8 @@
 				<tbody>
 					<tr th:each="food : ${foods}">
 						<td th:text="${food.description}"></td>
-						<td th:text="${food.brandName}"></td>
-						<td th:text="${food.foodCategory}"></td>
+						<td class="hide-on-small" th:text="${food.brandName}"></td>
+						<td class="hide-on-small" th:text="${food.foodCategory}"></td>
 						<td th:text="${food.getNutrientValue(1005)}"></td>
 						<td th:text="${food.getNutrientValue(1003)}"></td>
 						<td th:text="${food.getNutrientValue(1004)}"></td>
@@ -106,7 +112,7 @@
 								<ul class="dropdown-menu" th:aria-labelledby="'dropdownMenuLink' + ${food.fdcId}">
 									<li>
 
-										<form action="/Spring/api/items" method="post">
+										<form action="/api/items" method="post">
 											<input type="hidden" name="itemId" th:value="${food.fdcId}" />
 											<input type="hidden" name="quantity" value="1" />
 											<input type="hidden" name="meal" value="1" />
@@ -118,7 +124,7 @@
 									</li>
 									<li>
 
-										<form action="/Spring/api/items" method="post">
+										<form action="/api/items" method="post">
 											<input type="hidden" name="itemId" th:value="${food.fdcId}" />
 											<input type="hidden" name="quantity" value="1" />
 											<input type="hidden" name="meal" value="2" />
@@ -130,7 +136,7 @@
 									</li>
 									<li>
 
-										<form action="/Spring/api/items" method="post">
+										<form action="/api/items" method="post">
 											<input type="hidden" name="itemId" th:value="${food.fdcId}" />
 											<input type="hidden" name="quantity" value="1" />
 											<input type="hidden" name="meal" value="3" />
@@ -156,6 +162,11 @@
 		</div>
 	</footer>
 	<!-- Scripts -->
+	<script type="text/javascript" th:src="@{/assets/vendor/jquery/jquery-3.7.1.min.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/vendor/jquery/jquery.dataTables.min.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/vendor/bootstrap/js/dataTables.bootstrap5.min.js}"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.bootstrap5.min.js"></script>
+	<script type="text/javascript" th:src="@{/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
 	<script type="text/javascript" th:src="@{/assets/js/scripts.js}"></script>
 </body>
 

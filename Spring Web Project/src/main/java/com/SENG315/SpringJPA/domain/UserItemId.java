@@ -1,7 +1,7 @@
 package com.SENG315.SpringJPA.domain;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 import jakarta.persistence.Embeddable;
@@ -19,12 +19,12 @@ public class UserItemId implements Serializable {
 	private Integer meal;
 	
 	@Temporal(TemporalType.DATE)
-	private Date date;
+	private LocalDate date;
 	
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 	public Integer getMeal() {

@@ -1,5 +1,6 @@
 package com.SENG315.SpringJPA.domain;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import jakarta.persistence.Column;
@@ -29,13 +30,13 @@ public class Item {
 	private double quantity;
 	
 	@Temporal(TemporalType.DATE)
-	private Date date;
+	private LocalDate date;
 	
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 	

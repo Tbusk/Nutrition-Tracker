@@ -50,7 +50,7 @@ public class FoodViewController {
 		
 		try {
 		ResponseEntity<USDASearchResponse> response = restTemplate.exchange 
-				("https://api.nal.usda.gov/fdc/v1/foods/search?pageSize=25&query=" + query, HttpMethod.GET, entity, USDASearchResponse.class);
+				("https://api.nal.usda.gov/fdc/v1/foods/search?pageSize=20&query=" + query, HttpMethod.GET, entity, USDASearchResponse.class);
 						
 	    foods.addAll(response.getBody().getFoods());		
 		} catch (Exception e) {

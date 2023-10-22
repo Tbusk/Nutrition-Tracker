@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
 	<title>Nutrition Page</title>
@@ -14,132 +14,148 @@
 <body>
 	<!-- Navbar, W3Schools & MDBootsrap -->
 	<nav class="navbar navbar-expand-sm navbar-light" style="padding-right: 14px">
-		<a class="navbar-brand" href="/Spring/" style="padding-left: 20px;">Nutrition Tracker Project</a>
+		<a class="navbar-brand" href="/" style="padding-left: 20px;">Nutrition Tracker Project</a>
 		<div class="collapse navbar-collapse" id="navbarText">
 			<ul class="navbar-nav me-auto">
 				<li class="nav-item">
-					<a href="/Spring/" class="nav-link"><span>Home</span></a>
+					<a href="/" class="nav-link"><span>Home</span></a>
 				</li>
 				<li class="nav-item" sec:authorize="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
-					<a href="/Spring/foods" class="nav-link"><span>Foods</span></a>
+					<a href="/foods" class="nav-link"><span>Foods</span></a>
 				</li>
 				<li class="nav-item" sec:authorize="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
-					<a href="/Spring/journal" class="nav-link"><span>Journal</span></a>
+					<a href="/journal" class="nav-link"><span>Journal</span></a>
 				</li>
 				<li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
-					<a href="/Spring/admin" class="nav-link"><span>Manage</span></a>
+					<a href="/admin" class="nav-link"><span>Manage</span></a>
 				</li>
 			</ul>
 
 			<div sec:authorize="hasAnyRole('ROLE_USER','ROLE_ADMIN')" class="navbar-logged-in ml-3">
 				<ul class="navbar-nav me-auto">
-					<li class="nav-item">
-						<span sec:authentication="name" style="font-size: 20px;"></span>
-						<i class="bi bi-person-circle" style="font-size: 28px;"> </i>
-					</li>
-					<li class="nav-item me-3 me-lg-0" style='margin-left:15px;'>
-						<form th:action="@{/logout}" method="post">
-							<button class="btn btn-outline-primary" type="submit">Logout</button>
-						</form>
-					</li>
-				</ul>
+				<li class="nav-item align-items-center">
+					<div class="d-flex align-items-center">
+                    <a class="nav-link" sec:authentication="name"></a>
+                    <i class="bi bi-person-circle" style="font-size: 22px;"></i>
+                    </div>
+                </li>
+                <li class="nav-item me-3 me-lg-0" style='margin-left:15px;'>
+					<form th:action="@{/logout}" method="post">
+						<button class="btn btn-light" type="submit">Logout</button>
+					</form>
+				</li>
+			</ul>
 			</div>
 
 		</div>
 	</nav>
 
-	<div sec:authorize="hasAnyRole('ROLE_USER','ROLE_ADMIN')" class="container mt-3 mb-3">
-		<h1 class="h1 text-center">Daily Total</h1>
-		<table class="table table-hover table-bordered table-sm">
-			<thead class="table-light">
-				<tr>
-					<th class="text-center align-middle">Protein</th>
-					<th class="text-center align-middle">Fat</th>
-					<th class="text-center align-middle">Carbs</th>
-					<th class="text-center align-middle">Calories</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td class="text-center align-middle" th:text="${totalProtein}"></td>
-					<td class="text-center align-middle" th:text="${totalFat}"></td>
-					<td class="text-center align-middle" th:text="${totalCarbs}"></td>
-					<td class="text-center align-middle" th:text="${totalCal}"></td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
+	<div class="container mt-4 mb-4">
+		<div class="form-container mb-3 mt-3">
+			<form th:action="@{./journal}" method="get">
+				<label for="dateSelected" class="h3 text-center mb-3" style="justify-content: center;">Choose a Date</label>
+				<input id="dateSelected" class="form-control text-center" type="date" name="dateSelected"
+					th:value="${dateSelected}" onchange="this.form.submit()" />
+			</form>
+		</div>
+		<div sec:authorize="hasAnyRole('ROLE_USER','ROLE_ADMIN')" class="container mt-5 mb-3">
+			<h1 class="h3 text-center mb-2">Daily Total</h1>
+			<table class="table table-hover table-bordered table-sm">
+				<thead class="table-light">
+					<tr>
+						<th class="text-center align-middle">Protein</th>
+						<th class="text-center align-middle">Fat</th>
+						<th class="text-center align-middle">Carbs</th>
+						<th class="text-center align-middle">Calories</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="text-center align-middle" th:text="${totalProtein} + 'g'"></td>
+						<td class="text-center align-middle" th:text="${totalFat} + 'g'"></td>
+						<td class="text-center align-middle" th:text="${totalCarbs} + 'g'"></td>
+						<td class="text-center align-middle" th:text="${totalCal}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 
-	<div sec:authorize="hasAnyRole('ROLE_USER','ROLE_ADMIN')" class="container mt-5 mb-5"
-		th:each="mealNumber : ${#numbers.sequence(1, 3)}">
-		<h1 class="h2 text-center" th:text="'Meal ' + ${mealNumber}" />
-		<table class="table table-hover table-bordered table-sm">
-			<thead class="table-light">
-				<tr>
-					<th class="text-center align-middle">Name</th>
-					<th class="text-center align-middle">Protein</thclass="text-center">
-					<th class="text-center align-middle">Fat</th>
-					<th class="text-center align-middle">Carbs</thclass="text-center">
-					<th class="text-center align-middle">Calories</th>
-					<th class="text-center align-middle">Quantity</th>
-					<th class="text-center align-middle">Update Qty</th>
-					<th class="text-center align-middle">Remove</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="item : ${items}" th:if="${item.meal} == ${mealNumber}">
-					<td class="text-center align-middle" th:text="${foodMap[item.itemId].description}"></td>
-					<td class="text-center align-middle" th:text="${foodMap[item.itemId].getNutrientValue(1003)}"></td>
-					<td class="text-center align-middle" th:text="${foodMap[item.itemId].getNutrientValue(1004)}"></td>
-					<td class="text-center align-middle" th:text="${foodMap[item.itemId].getNutrientValue(1005)}"></td>
-					<td class="text-center align-middle" th:text="${foodMap[item.itemId].getNutrientValue(1008)}"></td>
-					<td class="text-center align-middle" th:id="'qtyForItem' + ${item.itemId}" th:text="${item.quantity}"
-						contenteditable="true"></td>
-					<td>
-						<script th:inline="javascript">
-							/*<![CDATA[*/
+		<div sec:authorize="hasAnyRole('ROLE_USER','ROLE_ADMIN')" class="container mt-5 mb-5"
+			th:each="mealNumber : ${#numbers.sequence(1, 3)}">
+			<h1 class="h3 text-center" th:text="'Meal ' + ${mealNumber}" />
+			<table class="table table-hover table-bordered table-sm">
+				<thead class="table-light">
+					<tr>
+						<th class="text-center align-middle">Name</th>
+						<th class="text-center align-middle">Protein</thclass="text-center">
+						<th class="text-center align-middle">Fat</th>
+						<th class="text-center align-middle">Carbs</thclass="text-center">
+						<th class="text-center align-middle">Calories</th>
+						<th class="text-center align-middle">Quantity</th>
+						<th class="text-center align-middle">Update Qty</th>
+						<th class="text-center align-middle">Remove</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="item : ${items}"
+						th:if="${item.meal} == ${mealNumber} AND ${item.date} == ${dateSelected}">
+						<td class="text-center align-middle" th:text="${foodMap[item.itemId].description}"></td>
+						<td class="text-center align-middle"
+							th:text="${foodMap[item.itemId].getNutrientValue(1003)} + 'g'"></td>
+						<td class="text-center align-middle"
+							th:text="${foodMap[item.itemId].getNutrientValue(1004)} + 'g'"></td>
+						<td class="text-center align-middle"
+							th:text="${foodMap[item.itemId].getNutrientValue(1005)} + 'g'"></td>
+						<td class="text-center align-middle" th:text="${foodMap[item.itemId].getNutrientValue(1008)}">
+						</td>
+						<td class="text-center align-middle" th:id="'qtyForItem' + ${item.itemId}"
+							th:text="${item.quantity}" contenteditable="true"></td>
+						<td>
+							<script th:inline="javascript">
+								/*<![CDATA[*/
 
-							var lastValidInput = document.getElementById('qtyForItem[[${item.itemId}]]').innerText;
+								var lastValidInput = document.getElementById('qtyForItem[[${item.itemId}]]').innerText;
 
-							document.getElementById('qtyForItem[[${item.itemId}]]').addEventListener('input', function () {
-								if (/^\d*\.?\d*$/.test(this.innerText)) {
-									lastValidInput = this.innerText;
-									document.getElementById('item[[${item.itemId}]]').value = this.innerText;
-								} else {
-									this.innerText = lastValidInput;
-									alert('A valid number is needed.');
-								}
-							});
+								document.getElementById('qtyForItem[[${item.itemId}]]').addEventListener('input', function () {
+									if (/^\d*\.?\d*$/.test(this.innerText)) {
+										lastValidInput = this.innerText;
+										document.getElementById('item[[${item.itemId}]]').value = this.innerText;
+									} else {
+										this.innerText = lastValidInput;
+										alert('A valid number is needed.');
+									}
+								});
 	            		/*]]>*/
-						</script>
-						<div class="d-flex justify-content-center">
-							<form id="updateItem" action="/Spring/api/items/update" method="post">
-								<input type="hidden" name="itemId" th:value="${foodMap[item.itemId].fdcId}" />
-								<input th:attr="id='item' + ${item.itemId}, value=${item.quantity}" type="hidden"
-									name="quantity" />
-								<input type="hidden" name="meal" th:value="${item.meal}" />
-								<input type="hidden" name="date" th:value="${item.date}" />
-								<input type="hidden" name="_method" value="put" />
-								<input type="hidden" name="_csrf" th:value="${_csrf.token}" />
-								<button class="btn btn-outline-secondary" type="submit">Update</button>
-							</form>
-						</div>
-					</td>
-					<td>
-						<div class="d-flex justify-content-center">
-							<form id="removeItem" action="/Spring/api/items/delete" method="post">
-								<input type="hidden" name="itemId" th:value="${foodMap[item.itemId].fdcId}" />
-								<input type="hidden" name="meal" th:value="${item.meal}" />
-								<input type="hidden" name="date" th:value="${item.date}" />
-								<input type="hidden" name="_method" value="delete" />
-								<input type="hidden" name="_csrf" th:value="${_csrf.token}" />
-								<button class="btn btn-outline-primary" type="submit">Remove</button>
-							</form>
-						</div>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+							</script>
+							<div class="d-flex justify-content-center">
+								<form id="updateItem" action="/api/items/update" method="post">
+									<input type="hidden" name="itemId" th:value="${foodMap[item.itemId].fdcId}" />
+									<input th:attr="id='item' + ${item.itemId}, value=${item.quantity}" type="hidden"
+										name="quantity" />
+									<input type="hidden" name="meal" th:value="${item.meal}" />
+									<input type="hidden" name="date" th:value="${item.date}" />
+									<input type="hidden" name="_method" value="put" />
+									<input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+									<button class="btn btn-outline-secondary" type="submit">Update</button>
+								</form>
+							</div>
+						</td>
+						<td>
+							<div class="d-flex justify-content-center">
+								<form id="removeItem" action="/api/items/delete" method="post">
+									<input type="hidden" name="itemId" th:value="${foodMap[item.itemId].fdcId}" />
+									<input type="hidden" name="meal" th:value="${item.meal}" />
+									<input type="hidden" name="date" th:value="${item.date}" />
+									<input type="hidden" name="_method" value="delete" />
+									<input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+									<button class="btn btn-outline-primary" type="submit">Remove</button>
+								</form>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
 
 	<!-- Footer, MDBootsrap & W3Schools -->
