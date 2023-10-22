@@ -26,14 +26,14 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password` varchar(75) NOT NULL,
   `role` varchar(50) NOT NULL DEFAULT 'USER',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
--- Dumping data for table diet-tracker.user: ~3 rows (approximately)
+-- Dumping data for table diet-tracker.user: ~4 rows (approximately)
 INSERT INTO `user` (`id`, `email`, `password`, `role`) VALUES
-	(3, 'test@test.com', '$2a$10$YZnzgNqWCRdt5ySYY1EzbeuOeRvaCCpLhqn9nCm.tpFh3U/ctrkR2', 'USER'),
 	(4, 'admin@admin.com', '$2a$10$kDf8CANThWyHu45k5Sj1Iug3ZzoMWWN2ly/CDgBc6KUHiZANNyXz6', 'ADMIN'),
 	(5, 'test1@gmail.com', '$2a$10$vMbgt8JkavfZYR0a7vKCqeF5UqJeW7o3ShL4sMZuD1GBdZBBHPYMG', 'USER'),
-	(6, 'billybob@gmail.com', '$2a$10$kS6qy.rFYieIK5V4y6unROrSuBxhwe9Wovxk9.KiYY/eStS4upNr6', 'USER');
+	(6, 'billybob@gmail.com', '$2a$10$kS6qy.rFYieIK5V4y6unROrSuBxhwe9Wovxk9.KiYY/eStS4upNr6', 'USER'),
+	(13, 'lol@lol.com', '$2a$10$Qnpu7DQO51NpkwcybbVtEOkXk6DvU3PW2OD/E5eBMsg/jXxVQ.CW2', 'USER');
 
 -- Dumping structure for table diet-tracker.user_item
 CREATE TABLE IF NOT EXISTS `user_item` (
@@ -44,20 +44,25 @@ CREATE TABLE IF NOT EXISTS `user_item` (
   `date` date NOT NULL DEFAULT curdate(),
   PRIMARY KEY (`user_id`,`item_id`,`meal`,`date`) USING BTREE,
   KEY `FK_user_item_food` (`item_id`),
-  CONSTRAINT `FK_user_item_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `FK_user_item_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
--- Dumping data for table diet-tracker.user_item: ~9 rows (approximately)
+-- Dumping data for table diet-tracker.user_item: ~15 rows (approximately)
 INSERT INTO `user_item` (`user_id`, `item_id`, `quantity`, `meal`, `date`) VALUES
-	(3, 2341752, 5, 1, '2023-10-20'),
+	(4, 2009474, 1, 1, '2023-10-22'),
 	(4, 2092152, 1, 1, '2023-10-20'),
 	(4, 2344749, 2, 1, '2023-10-20'),
-	(5, 173162, 1, 2, '2023-10-21'),
-	(5, 748967, 2, 1, '2023-10-21'),
-	(5, 2092152, 1, 2, '2023-10-21'),
-	(5, 2343164, 1, 1, '2023-10-21'),
-	(5, 2344443, 1, 2, '2023-10-21'),
-	(5, 2365213, 1, 3, '2023-10-21'),
+	(5, 167782, 1, 1, '2023-10-21'),
+	(5, 748967, 1, 1, '2023-10-22'),
+	(5, 2066523, 2, 3, '2023-10-22'),
+	(5, 2341232, 3, 2, '2023-10-22'),
+	(5, 2341752, 1, 1, '2023-10-21'),
+	(5, 2342288, 4, 3, '2023-10-20'),
+	(5, 2343010, 0.25, 1, '2023-10-22'),
+	(5, 2343212, 1, 1, '2023-10-22'),
+	(5, 2344720, 1, 2, '2023-10-22'),
+	(5, 2344876, 1.5, 3, '2023-10-22'),
+	(5, 2345585, 1, 2, '2023-10-22'),
 	(6, 2341752, 0.5, 1, '2023-10-20');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
