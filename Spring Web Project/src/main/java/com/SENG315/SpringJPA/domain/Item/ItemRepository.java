@@ -1,4 +1,4 @@
-package com.SENG315.SpringJPA.domain;
+package com.SENG315.SpringJPA.domain.Item;
 
 import java.time.LocalDate;
 import java.util.List;

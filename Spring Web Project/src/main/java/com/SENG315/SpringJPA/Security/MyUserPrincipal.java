@@ -8,7 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.SENG315.SpringJPA.domain.User;
+import com.SENG315.SpringJPA.domain.User.User;
 
 public class MyUserPrincipal implements UserDetails {
 

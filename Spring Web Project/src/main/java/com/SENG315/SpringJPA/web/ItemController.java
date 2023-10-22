@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.SENG315.SpringJPA.domain.Item;
-import com.SENG315.SpringJPA.domain.ItemRepository;
-import com.SENG315.SpringJPA.domain.User;
-import com.SENG315.SpringJPA.domain.UserItemId;
-import com.SENG315.SpringJPA.domain.UserRepository;
+import com.SENG315.SpringJPA.domain.Item.Item;
+import com.SENG315.SpringJPA.domain.Item.ItemRepository;
+import com.SENG315.SpringJPA.domain.Item.UserItemId;
+import com.SENG315.SpringJPA.domain.User.User;
+import com.SENG315.SpringJPA.domain.User.UserRepository;
 
 @Controller
 @RequestMapping(path = "/api/items")

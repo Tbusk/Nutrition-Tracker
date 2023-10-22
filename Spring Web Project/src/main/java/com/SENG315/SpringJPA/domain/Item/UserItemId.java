@@ -1,4 +1,4 @@
-package com.SENG315.SpringJPA.domain;
+package com.SENG315.SpringJPA.domain.Item;
 
 import java.io.Serializable;
 import java.time.LocalDate;

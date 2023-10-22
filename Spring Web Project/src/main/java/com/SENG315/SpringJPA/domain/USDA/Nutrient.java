@@ -1,4 +1,4 @@
-package com.SENG315.SpringJPA.domain;
+package com.SENG315.SpringJPA.domain.USDA;
 
 public enum Nutrient {
 

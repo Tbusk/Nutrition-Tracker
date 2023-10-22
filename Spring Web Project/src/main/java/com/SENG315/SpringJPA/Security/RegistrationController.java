@@ -6,8 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.SENG315.SpringJPA.domain.User;
-import com.SENG315.SpringJPA.domain.UserRepository;
+import com.SENG315.SpringJPA.domain.User.User;
+import com.SENG315.SpringJPA.domain.User.UserRepository;
 
 @Controller
 public class RegistrationController {

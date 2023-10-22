@@ -1,4 +1,4 @@
-package com.SENG315.SpringJPA.domain;
+package com.SENG315.SpringJPA.domain.User;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

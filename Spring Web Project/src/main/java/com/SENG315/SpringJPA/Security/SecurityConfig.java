@@ -14,6 +14,10 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
+import com.SENG315.SpringJPA.Security.Handler.CustomAccessDeniedHandler;
+import com.SENG315.SpringJPA.Security.Handler.CustomAuthenticationFailureHandler;
+import com.SENG315.SpringJPA.Security.Handler.CustomAuthenticationSuccessHandler;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {

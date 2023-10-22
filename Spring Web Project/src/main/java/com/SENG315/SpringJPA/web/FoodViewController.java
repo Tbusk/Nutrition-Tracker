@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
-import com.SENG315.SpringJPA.domain.USDAFood;
-import com.SENG315.SpringJPA.domain.USDASearchResponse;
-import com.SENG315.SpringJPA.domain.User;
-import com.SENG315.SpringJPA.domain.UserRepository;
+import com.SENG315.SpringJPA.domain.USDA.USDAFood;
+import com.SENG315.SpringJPA.domain.USDA.USDASearchResponse;
+import com.SENG315.SpringJPA.domain.User.User;
+import com.SENG315.SpringJPA.domain.User.UserRepository;
 
 @Controller
 public class FoodViewController {

@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.SENG315.SpringJPA.domain.User;
-import com.SENG315.SpringJPA.domain.UserRepository;
+import com.SENG315.SpringJPA.domain.User.User;
+import com.SENG315.SpringJPA.domain.User.UserRepository;
 
 @Controller
 @RequestMapping(path = "/admin")

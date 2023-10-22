@@ -1,4 +1,4 @@
-package com.SENG315.SpringJPA.Security;
+package com.SENG315.SpringJPA.Security.Handler;
 
 import java.io.IOException;
 

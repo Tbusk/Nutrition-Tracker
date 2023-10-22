@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.SENG315.SpringJPA.domain.User;
-import com.SENG315.SpringJPA.domain.UserRepository;
+import com.SENG315.SpringJPA.domain.User.User;
+import com.SENG315.SpringJPA.domain.User.UserRepository;
 
 @RestController
 @RequestMapping(path = "/api/users")
